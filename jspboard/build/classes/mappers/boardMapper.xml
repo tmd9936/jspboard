@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="util.BoardMapper">
+	<insert id="insertBoard" parameterType="board">
+		insert into jspboard (boardnum,id,title,content)
+		values(jspboard_seq.nextval,#{id},#{title},#{content})
+	</insert>
+	
+	<select id="getBoard" resultType="board">
+	select *
+	from jspboard
+	where boardnum = #{boardnum}
+	</select>
+	
+	<select id="getBoardList" resultType="board">
+	select *
+	from jspboard
+	order by boardnum desc
+	</select>
+	
+	<update id="updateBoard">
+	update jspboard
+	set title = #{title},content = #{content}
+	where boardnum = #{boardnum}
+	</update>
+	
+	<delete id="deleteBoard">
+	delete from jspboard
+	where boardnum = #{boardnum}
+	</delete>
+	
+	<update id="addHits">
+	update jspboard
+	set hits = hits + 1
+	where boardnum = #{boardnum}
+	</update>
+
+</mapper>

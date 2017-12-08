@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="util.MemberMapper">
+	<insert id="joinMember" parameterType="member">
+		insert into jspmember(id,password,name,phone,address)
+		values(#{id},#{password},#{name},#{phone},#{address})
+	</insert>
+	
+	<select id="loginMember" resultType="member" parameterType="member">
+		select *
+		from jspmember
+		where id=#{id} and password=#{password}
+	</select>
+	
+	<select id="idCheck" resultType="member">
+		select *
+		from jspmember
+		where id=#{id}
+	</select>
+	
+	<update id="updateMember" parameterType="member">
+		update jspmember 
+		set password = #{password}, name = #{name}, 
+		phone = #{phone}, address = #{address}
+		where id=#{id}
+	</update>
+
+</mapper>
