@@ -2,18 +2,13 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.HttpCookie;
 
-import javax.print.attribute.PrintRequestAttribute;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
 
 import util.MemberDAO;
 import vo.Member;
@@ -116,13 +111,14 @@ public class MemberServlet extends HttpServlet {
 			} else {
 				HttpSession session = req.getSession();
 				session.setAttribute("member", m);
+				session.setAttribute("id", id);
 				resp.sendRedirect("index.jsp");
 				// 브라우저한테 세션 보내주는 코드
 			}
 
 			// req.setAttribute("member", m);
-			//
 			// RequestDispatcher dispatcher = req.getRequestDispatcher("jsp/board.jsp");
+			//
 			// dispatcher.forward(req, resp);
 		} 
 		else if (action.equals("idcheck")) {
@@ -166,8 +162,10 @@ public class MemberServlet extends HttpServlet {
 			resp.sendRedirect("index.jsp");
 
 		}else if(action.equals("removeMember")) {
+			//로그아웃
 			HttpSession session = req.getSession();
 			session.removeAttribute("member");
+			session.removeAttribute("id");
 			
 			resp.sendRedirect("index.jsp");
 		}

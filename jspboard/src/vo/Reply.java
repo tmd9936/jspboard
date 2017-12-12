@@ -11,17 +11,13 @@ public class Reply {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Reply(int replynum, int boardnum, String id, String retext, String inputdate) {
-		super();
-		this.replynum = replynum;
+	public Reply(int boardnum, String id, String retext) {
 		this.boardnum = boardnum;
 		this.id = id;
 		this.retext = retext;
-		this.inputdate = inputdate;
 	}
 
 	public Reply(String id, String retext) {
-		super();
 		this.id = id;
 		this.retext = retext;
 	}

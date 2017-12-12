@@ -6,37 +6,44 @@
 
 <mapper namespace="util.BoardMapper">
 	<insert id="insertBoard" parameterType="board">
-		insert into jspboard (boardnum,id,title,content)
+		insert into jspboard
+		(boardnum,id,title,content)
 		values(jspboard_seq.nextval,#{id},#{title},#{content})
 	</insert>
-	
+
 	<select id="getBoard" resultType="board">
-	select *
-	from jspboard
-	where boardnum = #{boardnum}
+		select *
+		from jspboard
+		where boardnum = #{boardnum}
 	</select>
-	
+
 	<select id="getBoardList" resultType="board">
-	select *
-	from jspboard
-	order by boardnum desc
+		select *
+		from jspboard
+		order by boardnum desc
 	</select>
 	
+	<select id="getBoardListBounds" resultType="board">
+		select *
+		from jspboard
+		order by boardnum desc
+	</select>
+
 	<update id="updateBoard">
-	update jspboard
-	set title = #{title},content = #{content}
-	where boardnum = #{boardnum}
+		update jspboard
+		set title = #{title},content = #{content}
+		where boardnum = #{boardnum}
 	</update>
-	
+
 	<delete id="deleteBoard">
-	delete from jspboard
-	where boardnum = #{boardnum}
+		delete from jspboard
+		where boardnum = #{boardnum}
 	</delete>
-	
+
 	<update id="addHits">
-	update jspboard
-	set hits = hits + 1
-	where boardnum = #{boardnum}
+		update jspboard
+		set hits = hits + 1
+		where boardnum = #{boardnum}
 	</update>
 
 </mapper>

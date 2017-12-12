@@ -2,6 +2,7 @@ package util;
 
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
@@ -64,6 +65,7 @@ public class BoardDAO implements BoardMapper {
 		
 		return board;
 	}
+	
 
 	@Override
 	public List<Board> getBoardList() {
@@ -120,20 +122,52 @@ public class BoardDAO implements BoardMapper {
 
 	@Override
 	public int addHits(int boardnum) {
-		SqlSession session = factory.openSession();
-		BoardMapper mapper = session.getMapper(BoardMapper.class);
 		
 		int result = 0;
-		
-		try {
+		try(SqlSession session = factory.openSession()){
+			BoardMapper mapper = session.getMapper(BoardMapper.class);
 			result = mapper.addHits(boardnum);
 			session.commit();
-		} finally {
-			session.close();
-			// TODO: handle finally clause
 		}
 		
 		return result;
 	}
+
+	@Override
+	public List<Board> getBoardListBounds(RowBounds rb) {
+		SqlSession session = factory.openSession();
+		BoardMapper mapper = session.getMapper(BoardMapper.class);
+		//rb는 오라클 기본 데이터타입이라 xml에서 타입명시 안 해줘도 됨 
+		List<Board> list = null;
+		
+		try {
+			list = mapper.getBoardListBounds(rb);
+		} finally {
+			session.close();
+		}
+		
+		return list;
+	}
+
+	@Override
+	public List<Board> getBoardList(int cpage) {
+		//페이지당 보여줄 글의 개수
+		int pagecount = 5;
+		//보여줄 페이지는 cpage가 들어있다.
+		
+		//만약 보여줄 페이지가 2라면
+		//가져올 글의 번호는 11 ~ 20이다.
+		int offset = (cpage-1)*pagecount;
+		//0부터 시작하니까 가능함
+		RowBounds rb = new RowBounds(offset, pagecount);
+		
+		List<Board> boardlist = this.getBoardListBounds(rb);
+		System.out.println("보여줄 보드의 개수"+boardlist.size());
+		
+		return boardlist;
+	}
+
+
+	
 
 }

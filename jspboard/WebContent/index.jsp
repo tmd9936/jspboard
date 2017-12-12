@@ -8,19 +8,20 @@
 <title>메인</title>
 </head>
 <body>
-<%Member member = (Member)session.getAttribute("member"); %>
+<%Member member = (Member)session.getAttribute("member"); 
+String id = (String)session.getAttribute("id");%>
 	
 	<%if(member==null){ %>
 		<h1><a href="member?action=join">회원가입</a></h1>
 		<h1><a href="member?action=login">로그인</a></h1>
 	<%}else{ %>
-		<h1><%=member.getId() %>님 환영합니다.</h1>
-		<h1><a href="jsp/board.jsp">글쓰기</a></h1>
+		<h1><%=id %>님 환영합니다.</h1>
+		<!-- <h1><a href="jsp/writeBoard.jsp">글쓰기</a></h1> -->
 		
 		<h1><a href="jsp/updateForm.jsp">회원정보 수정</a></h1>
 		<h1><a href="member?action=removeMember">로그아웃</a></h1>	
 	<%} %>
-		<h1>게시판</h1>
+		<h1><a href="jsp/board?action=boardlist">게시판</a></h1>
 		
 
 		

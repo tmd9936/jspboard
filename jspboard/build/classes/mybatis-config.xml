@@ -33,5 +33,6 @@
 	<mappers>
 		<mapper resource="mappers/memberMapper.xml" />
 		<mapper resource="mappers/boardMapper.xml"/>
+		<mapper resource="mappers/replyMapper.xml"/>
 	</mappers>
 </configuration>

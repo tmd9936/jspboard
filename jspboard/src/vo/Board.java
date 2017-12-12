@@ -24,11 +24,11 @@ public class Board {
 		this.content = content;
 	}
 
-	public int getNumber() {
+	public int getBoardnum() {
 		return boardnum;
 	}
 
-	public void setNumber(int boardnum) {
+	public void setBoardnum(int boardnum) {
 		this.boardnum = boardnum;
 	}
 
